@@ -50,6 +50,10 @@ h2 {
   height: 300px;
 }
 
+body{
+  
+}
+
 .card {
   position: relative;
   background-color: #fff;
@@ -122,4 +126,5 @@ h2 {
   position: relative;
   width: 40%;
   top: 30%;
+  opacity: 90%;
 }

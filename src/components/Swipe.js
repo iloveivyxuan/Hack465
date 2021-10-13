@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import TinderCard from '../lib/TinderCard';
+import SweetAlert from 'sweetalert-react';
 
 const db = [
   {
@@ -25,9 +26,10 @@ const db = [
 ]
 
 function Swipe () {
+  const [isOpen, setIsOpen] = useState(true);
   const characters = db
   const [lastDirection, setLastDirection] = useState()
-  const [currentLocation, setCurrentLocation] = useState()
+  const [currentLocation, setCurrentLocation] = useState(undefined)
 
   const swiped = (direction, nameToDelete) => {
     console.log('removing: ' + nameToDelete)
@@ -59,7 +61,13 @@ function Swipe () {
           <TinderCard className='swipe' key={character.name} onSwipe={(dir) => swiped(dir, character.name)} onCardLeftScreen={() => outOfFrame(character.name)} onMove={onMove}>
             <div style={{ backgroundImage: 'url(' + character.url + ')' }} className='card'>
               <h3>{character.name}</h3>
-              {renderIcon}
+              {renderIcon(currentLocation)}
+              <SweetAlert 
+                show={isOpen}
+                title="Demo"
+                text="SweetAlert in React"
+                onConfirm={() => setIsOpen(false)}
+              />
             </div>
           </TinderCard>
         )}
