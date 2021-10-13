@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './FakeGrubhubApp.css';
 import { Swipe } from './Swipe';
 import SweetAlert from 'sweetalert-react';
@@ -21,7 +21,7 @@ class SwipeContainer extends React.Component {
                 right: 'auto',
                 bottom: 'auto',
                 transform: 'translate(-50%, -50%)',
-                borderRadius: "12px"
+                borderRadius: "4px"
             },
         };
     }

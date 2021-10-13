@@ -219,7 +219,8 @@ const TinderCard = React.forwardRef(({ flickOnSwipe = true, children, onSwipe, o
       const newLocation = dragableTouchmove(touchCoordinatesFromEvent(ev), element.current, offset, lastLocation)
       speed = calcSpeed(lastLocation, newLocation)
       lastLocation = newLocation
-      if (onMove) onMove(getDirection(touchCoordinatesFromEvent(ev), offset))
+      const currentPosition = { x: touchCoordinatesFromEvent(ev).x + offset.x, y: touchCoordinatesFromEvent(ev).y + offset.y }
+      if (onMove) onMove(getDirection(touchCoordinatesFromEvent(ev), offset), currentPosition)
     })
 
     element.current.addEventListener(('mousemove'), (ev) => {
@@ -228,13 +229,15 @@ const TinderCard = React.forwardRef(({ flickOnSwipe = true, children, onSwipe, o
         const newLocation = dragableTouchmove(mouseCoordinatesFromEvent(ev), element.current, offset, lastLocation)
         speed = calcSpeed(lastLocation, newLocation)
         lastLocation = newLocation
-        if (onMove) onMove(getDirection(touchCoordinatesFromEvent(ev), offset))
+        const currentPosition = { x: mouseCoordinatesFromEvent(ev).x + offset.x, y: mouseCoordinatesFromEvent(ev).y + offset.y }
+        if (onMove) onMove(getDirection(mouseCoordinatesFromEvent(ev), offset), currentPosition)
       }
     })
 
     element.current.addEventListener(('touchend'), (ev) => {
       ev.preventDefault()
       handleSwipeReleased(element.current, speed)
+      onMove('middle', { x: 0, y: 0 })
     })
 
     element.current.addEventListener(('mouseup'), (ev) => {
@@ -242,6 +245,7 @@ const TinderCard = React.forwardRef(({ flickOnSwipe = true, children, onSwipe, o
         ev.preventDefault()
         mouseIsClicked = false
         handleSwipeReleased(element.current, speed)
+        onMove('middle', { x: 0, y: 0 })
       }
     })
 
@@ -250,6 +254,7 @@ const TinderCard = React.forwardRef(({ flickOnSwipe = true, children, onSwipe, o
         ev.preventDefault()
         mouseIsClicked = false
         handleSwipeReleased(element.current, speed)
+        onMove('middle', { x: 0, y: 0 })
       }
     })
   }, [])

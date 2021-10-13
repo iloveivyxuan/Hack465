@@ -28,7 +28,8 @@ const db = [
 function Swipe () {
   const characters = db
   const [lastDirection, setLastDirection] = useState()
-  const [currentLocation, setCurrentLocation] = useState(undefined)
+  const [currentDirection, setCurrentDirection] = useState(undefined)
+  const [currentLocation, setCurrentLocation] = useState({ x: 0, y: 0 })
 
   const swiped = (direction, nameToDelete) => {
     console.log('removing: ' + nameToDelete)
@@ -39,14 +40,15 @@ function Swipe () {
     console.log(name + ' left the screen!')
   }
 
-  const onMove = (dir) => {
-    setCurrentLocation(dir)
+  const onMove = (dir, location) => {
+    setCurrentDirection(dir)
+    setCurrentLocation(location)
   }
 
-  const renderIcon = (currentLocation) => {
-    if (currentLocation === 'right') {
-      return <img src='./img/like.svg' className='icon' alt='like'/>
-    } else if (currentLocation === 'left') {
+  const renderIcon = (currentDirection) => {
+    if (currentDirection === 'right') {
+      return <img src='./img/like.svg' style={{opacity: Math.abs(currentLocation.x)/100}} className='icon' alt='like'/>
+    } else if (currentDirection === 'left') {
       return <img src='./img/dislike.svg' className='icon' alt='like'/>
     } else {
       return
@@ -55,18 +57,29 @@ function Swipe () {
 
   return (
     <div>
-      <div className="header">
-        <div className="backButton">
-          <img src="./img/arrow-left.svg" alt="back to main page"/>
+      <h4 className='cardHeader'>Are you hungry for this right now?</h4>
+      <div className="divideBackground">
+        <div className="divideLeft">
+          <h4>Not today, thnx.</h4>
+          <div className="instruction">
+            <img src="./img/arrow-left.svg" alt="dislike"/>
+            <p>swipe left</p>
+          </div>
         </div>
-        <h3 className="swipGameTitle">Are you hungry for this right now?</h3>
+        <div className="divideRight">
+          <h4>Yum, yes please</h4>
+          <div className="instruction">
+            <p className="instruction__right">swipe right</p>
+            <img src="./img/arrow-right.svg" alt="like"/>
+          </div>
+        </div>
       </div>
       <div className='cardContainer'>
         {characters.map((character) =>
           <TinderCard className='swipe' key={character.name} onSwipe={(dir) => swiped(dir, character.name)} onCardLeftScreen={() => outOfFrame(character.name)} onMove={onMove}>
             <div style={{ backgroundImage: 'url(' + character.url + ')' }} className='card'>
               <h3>{character.name}</h3>
-              {renderIcon(currentLocation)}
+              {renderIcon(currentDirection)}
             </div>
           </TinderCard>
         )}
