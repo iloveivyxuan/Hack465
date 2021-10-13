@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import TinderCard from '../lib/TinderCard';
-import SweetAlert from 'sweetalert-react';
+import './Swipe.css';
 
 const db = [
   {
@@ -26,7 +26,6 @@ const db = [
 ]
 
 function Swipe () {
-  const [isOpen, setIsOpen] = useState(true);
   const characters = db
   const [lastDirection, setLastDirection] = useState()
   const [currentLocation, setCurrentLocation] = useState(undefined)
@@ -56,6 +55,12 @@ function Swipe () {
 
   return (
     <div>
+      <div className="header">
+        <div className="backButton">
+          <img src="./img/arrow-left.svg" alt="back to main page"/>
+        </div>
+        <h3 className="swipGameTitle">Are you hungry for this right now?</h3>
+      </div>
       <div className='cardContainer'>
         {characters.map((character) =>
           <TinderCard className='swipe' key={character.name} onSwipe={(dir) => swiped(dir, character.name)} onCardLeftScreen={() => outOfFrame(character.name)} onMove={onMove}>
@@ -66,7 +71,6 @@ function Swipe () {
           </TinderCard>
         )}
       </div>
-      {lastDirection ? <h2 className='infoText'>You swiped {lastDirection}</h2> : ''}
     </div>
   )
 }

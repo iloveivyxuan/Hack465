@@ -11,8 +11,6 @@ function App() {
 
   return (
     <div className="App">
-      <h3>Are you hungry for this right now?</h3>
-      <div className='left'></div>
       {showGrubHubApp? <FakeGrubHubApp /> : ''}
       {showAlert? <Alert setShowSwipe={setShowSwipe} setShowGrubHubApp={setShowGrubHubApp} setShowAlert={setShowAlert} /> : ''}
       {showSwipe? <Swipe /> : ''}
