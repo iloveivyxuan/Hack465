@@ -3,6 +3,7 @@ import './App.css';
 import { Swipe } from './components/Swipe';
 import FakeGrubHubApp from './components/FakeGrubHubApp';
 import { Alert } from './components/Alert';
+import SwipeContainer from "./components/SwipeContainer";
 
 function App() {
   const [showSwipe, setShowSwipe] = useState(false);
@@ -11,9 +12,7 @@ function App() {
 
   return (
     <div className="App">
-      {showGrubHubApp? <FakeGrubHubApp /> : ''}
-      {showAlert? <Alert setShowSwipe={setShowSwipe} setShowGrubHubApp={setShowGrubHubApp} setShowAlert={setShowAlert} /> : ''}
-      {showSwipe? <Swipe /> : ''}
+      <SwipeContainer />
     </div>
   );
 }
