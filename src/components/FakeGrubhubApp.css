@@ -1,0 +1,10 @@
+.fake-gh-app {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+}
+
+.fake-gh-app__bg {
+  width: 100%;
+}

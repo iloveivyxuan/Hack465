@@ -62,12 +62,6 @@ function Swipe () {
             <div style={{ backgroundImage: 'url(' + character.url + ')' }} className='card'>
               <h3>{character.name}</h3>
               {renderIcon(currentLocation)}
-              <SweetAlert 
-                show={isOpen}
-                title="Demo"
-                text="SweetAlert in React"
-                onConfirm={() => setIsOpen(false)}
-              />
             </div>
           </TinderCard>
         )}
