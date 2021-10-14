@@ -1,0 +1,200 @@
+.topBar {
+  height: 46px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-left: 14px;
+}
+
+.cardHeader {
+  background-color: #DAF3F4;
+  height: 52px;
+}
+
+.cardHeader h4 {
+  margin-left: 20px;
+  font-size: 16px;
+  line-height: 52px;
+}
+
+.swipeWrapper {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 68px);
+}
+
+.divideBackground {
+  display: flex;
+  flex: 2;
+}
+
+.divideLeft {
+  flex: 1;
+  padding-left: 20px;
+}
+
+.divideLeft h4 {
+  font-size: 16px;
+  margin-top: 34px;
+  margin-bottom: 30px;
+}
+
+.divideLeft .instruction p {
+  margin-left: 6px;
+}
+
+.divideRight .instruction p {
+  margin-right: 6px;
+}
+
+.divideRight {
+  flex: 1;
+  text-align: right;
+  padding-right: 20px;
+}
+
+.divideRight h4 {
+  font-size: 16px;
+  margin-top: 34px;
+  margin-bottom: 30px;
+}
+
+.divide.active {
+  background-color: #572AF8;
+  color: #fff;
+}
+
+.instruction {
+  display: flex;
+}
+
+.instruction p {
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.instruction__right {
+  flex: 1;
+}
+
+.footer {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  box-shadow: 0px 1px 5px rgba(67, 41, 163, 0.08);
+}
+
+.cardWrapper {
+  width: calc(100vw - 28px);
+  box-shadow: 0px 1px 8px 0px rgba(67,41,163,0.10);
+  border-radius: 8px;
+  border: 1px solid rgba(67, 41, 163, 0.08);
+  box-sizing: content-box;
+  margin: 0 auto;
+}
+
+.restaurantInfo {
+  padding: 0 14px;
+}
+
+.restaurantInfo h4 {
+  margin-top: 14px;
+  margin-bottom: 4px;;
+}
+
+.moreInfo {
+  display: flex;
+  flex-direction: row;
+}
+
+.moreInfo__address {
+  flex: 1;
+  margin-left: 6px;
+}
+
+.moreInfo__address span {
+  line-height: 24px;;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  flex: 1;
+  animation-name: fade-in;
+  animation-duration: 2s;
+  animation-timing-function: normal;
+  animation-delay: 0s;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-fill-mode: none;
+}
+
+.sticker{
+  position: absolute;
+  top: 26px;
+  right: 8px;
+  width: 110px;
+  animation-name: bounce-in-zoomin;
+  animation-duration: 1.5s;
+  animation-timing-function: ease;
+  animation-delay: 0s;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-fill-mode: none;
+}
+
+@keyframes bounce-in-zoomin {
+  0%{
+    -webkit-transform: scale(7);
+    transform: scale(7);
+    animation-timing-function: ease-in;
+    opacity: 0;
+  }
+  35%{
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    animation-timing-function: ease-out;
+    opacity: 1;
+  }
+  55%{
+    -webkit-transform: scale(1.5);
+    transform: scale(1.5);
+    animation-timing-function: ease-in;
+  }
+  70%{
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    animation-timing-function: ease-out;
+  }
+  80%{
+    -webkit-transform: scale(1.24);
+    transform: scale(1.24);
+    animation-timing-function: ease-in;
+  }
+  90%{
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    animation-timing-function: ease-out;
+  }
+  95%{
+    -webkit-transform: scale(1.04);
+    transform: scale(1.04);
+    animation-timing-function: ease-in;
+  }
+  100%{
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    animation-timing-function: ease-out;
+  }
+}
+
+@keyframes fade-in {
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+

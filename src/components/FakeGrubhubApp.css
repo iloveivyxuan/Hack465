@@ -1,5 +1,5 @@
 .fake-gh-app {
-  position: fixed;
+  position: relative;
   width: 100vw;
   height: 100vh;
   overflow: auto;
@@ -7,4 +7,5 @@
 
 .fake-gh-app__bg {
   width: 100%;
+  display: block;
 }
