@@ -3,9 +3,55 @@ import { Swipe } from './Swipe';
 import { IconResponsive, SvgArrowLeft, SvgArrowRight, ButtonBar, Copy, Heading, SvgStar } from '@grubhubprod/gh-cookbook-react'
 import './SwipeGamepage.css';
 
-const SwipeGamePage = ({ goBack }) => {
+const defaultSelectedOptions = [
+  {
+    name: 'Bibimbop',
+    url: './img/bibimbop.jpg',
+    restaurant_list: [
+      {
+        restaurant_id: "restaurant_1",
+        restaurant_name:"Bibimbop Restaurant 1",
+      },
+      {
+        restaurant_id: "restaurant_2",
+        restaurant_name:"Bibimbop Restaurant 2",
+      }
+    ],
+  },
+  {
+    name: 'Burger',
+    url: './img/burger.jpg',
+    restaurant_list: [
+      {
+        restaurant_id: "restaurant_1",
+        restaurant_name:"Burger 1",
+      },
+      {
+        restaurant_id: "restaurant_2",
+        restaurant_name:"Burger Restaurant 2",
+      }
+    ],
+  },
+];
+
+const SwipeGamePage = ({ goBack, setShowRestaurantList, setShowSwipe }) => {
   const [activeDirection, setActiveDirection] = useState('right');
   const [isSwipeComplete, setIsSwipeComplete] = useState(false);
+  const [recommendationListShort, setRecommendationListShort] = useState([]);
+  const [recommendationListLong, setRecommendationistLong] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const shortList = recommendationListShort.length === 0 ? defaultSelectedOptions : recommendationListShort;
+
+  const seeAllMatches = () => {
+    console.log("match list")
+    setShowRestaurantList(true);
+    setShowSwipe(false);
+  }
+
+  const getAnotherOne = () => {
+    setCurrentIndex(currentIndex + 1);
+  }
 
   const renderSwipeGame = (
     <Fragment>
@@ -28,7 +74,7 @@ const SwipeGamePage = ({ goBack }) => {
           </div>
         </div>
       </div>
-      <Swipe setActiveDirection={setActiveDirection} setIsSwipeComplete={setIsSwipeComplete} />
+      <Swipe setActiveDirection={setActiveDirection} setIsSwipeComplete={setIsSwipeComplete} setRecommendationListShort={setRecommendationListShort} recommendationListShort={recommendationListShort} />
     </Fragment>
   );
 
@@ -36,12 +82,11 @@ const SwipeGamePage = ({ goBack }) => {
     <Fragment>
       <img className="sticker" src="./img/sticker.png" alt="sticker"/>
       <div className='cardHeader'>
-        <h4>We found you a Grub Match!</h4>
+        <h4>We found you a Grubhub Match!</h4>
       </div>
       <div className="container">
         <div className="cardWrapper">
-          <div style={{ backgroundImage: 'url(' + './img/salmon.jpg' + ')' }} className='card'>
-          </div>
+          <div style={{ backgroundImage: 'url(' + shortList[currentIndex].url + ')' }} className='card'></div>
           <div className="cardBottom">
             <h4>Sushi Platter</h4>
             <Copy color="secondaryText">This description has a max of 3 lines of text. Truncate manually. You can also resize this to 44px if it has no badge...</Copy>
@@ -68,8 +113,8 @@ const SwipeGamePage = ({ goBack }) => {
             text: 'Add to bag - $10.79'
           }}
           secondary={{
-            onClick: function noRefCheck(){},
-            text: 'No thanks'
+            onClick: currentIndex >= 2 ? seeAllMatches : getAnotherOne,
+            text: currentIndex >= 2 ? 'See all Grubhub Matches' : 'Show me another'
           }}
         />
       </div>
@@ -83,7 +128,7 @@ const SwipeGamePage = ({ goBack }) => {
           <SvgArrowLeft />
         </IconResponsive>
       </div>
-      {isSwipeComplete ? renderResult : renderSwipeGame}
+      {!isSwipeComplete ? renderSwipeGame : renderResult}
     </div>
   );
 }

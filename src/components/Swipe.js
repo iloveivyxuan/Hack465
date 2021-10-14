@@ -1,102 +1,33 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TinderCard from '../lib/TinderCard';
 import './Swipe.css';
+import { db } from '../res/data';
 
-const db = [
-  {
-    name: 'Bibimbop',
-    url: './img/bibimbop.jpg',
-    restaurant_list: [
-      {
-        restaurant_id: "restaurant_1",
-        restaurant_name:"Bibimbop Restaurant 1",
-        add_to_cart_link: "https://pp.grubhub.com/restaurant/jerusalem-cafe-35-w-36th-st-new-york/264918/menu-item/7344586?menu-item-options="
-      },
-      {
-        restaurant_id: "restaurant_2",
-        restaurant_name:"Bibimbop Restaurant 2",
-        add_to_cart_link: "https://pp.grubhub.com/restaurant/jerusalem-cafe-35-w-36th-st-new-york/264918/menu-item/7344586?menu-item-options="
-      }
-    ],
-    isLast: true,
-  },
-  {
-    name: 'Burger',
-    url: './img/burger.jpg',
-    restaurant_list: [
-      {
-        restaurant_id: "restaurant_1",
-        restaurant_name:"Burger 1",
-        add_to_cart_link: "https://pp.grubhub.com/restaurant/jerusalem-cafe-35-w-36th-st-new-york/264918/menu-item/7344586?menu-item-options="
-      },
-      {
-        restaurant_id: "restaurant_2",
-        restaurant_name:"Burger Restaurant 2",
-        add_to_cart_link: "https://pp.grubhub.com/restaurant/jerusalem-cafe-35-w-36th-st-new-york/264918/menu-item/7344586?menu-item-options="
-      }
-    ],
-  },
-  {
-    name: 'Meatballs',
-    url: './img/meatballs.jpg',
-    restaurant_list: [
-      {
-        restaurant_id: "restaurant_1",
-        restaurant_name:"Meatballs Restaurant 1",
-        add_to_cart_link: "https://pp.grubhub.com/restaurant/jerusalem-cafe-35-w-36th-st-new-york/264918/menu-item/7344586?menu-item-options="
-      },
-      {
-        restaurant_id: "restaurant_2",
-        restaurant_name:"Meatballs Restaurant 2",
-        add_to_cart_link: "https://pp.grubhub.com/restaurant/jerusalem-cafe-35-w-36th-st-new-york/264918/menu-item/7344586?menu-item-options="
-      }
-    ],
-  },
-  {
-    name: 'Rice Noodles',
-    url: './img/rice-noodles.jpg',
-    restaurant_list: [
-      {
-        restaurant_id: "restaurant_1",
-        restaurant_name:"Rice Noodles Restaurant 1",
-        add_to_cart_link: "https://pp.grubhub.com/restaurant/jerusalem-cafe-35-w-36th-st-new-york/264918/menu-item/7344586?menu-item-options="
-      },
-      {
-        restaurant_id: "restaurant_2",
-        restaurant_name:"Rice Noodles Restaurant 2",
-        add_to_cart_link: "https://pp.grubhub.com/restaurant/jerusalem-cafe-35-w-36th-st-new-york/264918/menu-item/7344586?menu-item-options="
-      }
-    ],
-  },
-  {
-    name: 'Salmon',
-    url: './img/salmon.jpg',
-    restaurant_list: [
-      {
-        restaurant_id: "restaurant_1",
-        restaurant_name:"Fresh Salmon Restaurant 1",
-        add_to_cart_link: "https://pp.grubhub.com/restaurant/jerusalem-cafe-35-w-36th-st-new-york/264918/menu-item/7344586?menu-item-options="
-      },
-      {
-        restaurant_id: "restaurant_2",
-        restaurant_name:"Multidish Restaurant 2",
-        add_to_cart_link: "https://pp.grubhub.com/restaurant/jerusalem-cafe-35-w-36th-st-new-york/264918/menu-item/7344586?menu-item-options="
-      }
-    ],
-  }
-]
+let options = db;
+const shuffled = options.sort(() => 0.5 - Math.random());
+options = shuffled.slice(0, 5);
+options[0].isLast = true
 
-const Swipe = ({setActiveDirection, setIsSwipeComplete}) => {
-  const characters = db
+const selectedOptions = [];
+
+const Swipe = ({setActiveDirection, setIsSwipeComplete, setRecommendationListShort, recommendationListShort}) => {
   const [lastDirection, setLastDirection] = useState()
   const [currentDirection, setCurrentDirection] = useState(undefined)
   const [currentLocation, setCurrentLocation] = useState({ x: 0, y: 0 })
+  const [likedDishes, setLikedDishes] = useState([]);
 
-  const swiped = (direction, nameToDelete, isLast) => {
-    console.log('removing: ' + nameToDelete)
+  const swiped = (direction, option) => {
+    console.log('removing: ' + option.name)
     setLastDirection(direction)
-    if (isLast) {
+    if (option.isLast) {
       setIsSwipeComplete(true);
+      setRecommendationListShort(selectedOptions)
+    }
+    console.log(direction);
+    if (direction === 'right') {
+      selectedOptions.push(option)
+      // const newList = recommendationListShort.push(option)
+      // setRecommendationListShort(newList)
     }
   }
 
@@ -112,12 +43,12 @@ const Swipe = ({setActiveDirection, setIsSwipeComplete}) => {
 
   return (
     <div className='cardContainer'>
-      {characters.map((character) =>
-        <TinderCard className='swipe' key={character.name} onSwipe={(dir) => swiped(dir, character.name, character.isLast)} onCardLeftScreen={() => outOfFrame(character.name)} onMove={onMove}>
-          <div style={{ backgroundImage: 'url(' + character.url + ')' }} className='card'>
+      {options.map((option) =>
+        <TinderCard className='swipe' key={option.name} onSwipe={(dir) => swiped(dir, option)} onCardLeftScreen={() => outOfFrame(option.name)} onMove={onMove}>
+          <div style={{ backgroundImage: 'url(' + option.url + ')' }} className='card'>
           </div>
           <div className="cardBottom">
-            <h4>{character.name}</h4>
+            <h4>{option.name}</h4>
           </div>
         </TinderCard>
       )}
