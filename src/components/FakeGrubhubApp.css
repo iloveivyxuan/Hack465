@@ -7,4 +7,5 @@
 
 .fake-gh-app__bg {
   width: 100%;
+  display: block;
 }

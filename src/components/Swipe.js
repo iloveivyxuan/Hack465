@@ -5,35 +5,99 @@ import './Swipe.css';
 const db = [
   {
     name: 'Bibimbop',
-    url: './img/bibimbop.jpg'
+    url: './img/bibimbop.jpg',
+    restaurant_list: [
+      {
+        restaurant_id: "restaurant_1",
+        restaurant_name:"Bibimbop Restaurant 1",
+        add_to_cart_link: "https://pp.grubhub.com/restaurant/jerusalem-cafe-35-w-36th-st-new-york/264918/menu-item/7344586?menu-item-options="
+      },
+      {
+        restaurant_id: "restaurant_2",
+        restaurant_name:"Bibimbop Restaurant 2",
+        add_to_cart_link: "https://pp.grubhub.com/restaurant/jerusalem-cafe-35-w-36th-st-new-york/264918/menu-item/7344586?menu-item-options="
+      }
+    ],
+    isLast: true,
   },
   {
     name: 'Burger',
-    url: './img/burger.jpg'
+    url: './img/burger.jpg',
+    restaurant_list: [
+      {
+        restaurant_id: "restaurant_1",
+        restaurant_name:"Burger 1",
+        add_to_cart_link: "https://pp.grubhub.com/restaurant/jerusalem-cafe-35-w-36th-st-new-york/264918/menu-item/7344586?menu-item-options="
+      },
+      {
+        restaurant_id: "restaurant_2",
+        restaurant_name:"Burger Restaurant 2",
+        add_to_cart_link: "https://pp.grubhub.com/restaurant/jerusalem-cafe-35-w-36th-st-new-york/264918/menu-item/7344586?menu-item-options="
+      }
+    ],
   },
   {
     name: 'Meatballs',
-    url: './img/meatballs.jpg'
+    url: './img/meatballs.jpg',
+    restaurant_list: [
+      {
+        restaurant_id: "restaurant_1",
+        restaurant_name:"Meatballs Restaurant 1",
+        add_to_cart_link: "https://pp.grubhub.com/restaurant/jerusalem-cafe-35-w-36th-st-new-york/264918/menu-item/7344586?menu-item-options="
+      },
+      {
+        restaurant_id: "restaurant_2",
+        restaurant_name:"Meatballs Restaurant 2",
+        add_to_cart_link: "https://pp.grubhub.com/restaurant/jerusalem-cafe-35-w-36th-st-new-york/264918/menu-item/7344586?menu-item-options="
+      }
+    ],
   },
   {
     name: 'Rice Noodles',
-    url: './img/rice-noodles.jpg'
+    url: './img/rice-noodles.jpg',
+    restaurant_list: [
+      {
+        restaurant_id: "restaurant_1",
+        restaurant_name:"Rice Noodles Restaurant 1",
+        add_to_cart_link: "https://pp.grubhub.com/restaurant/jerusalem-cafe-35-w-36th-st-new-york/264918/menu-item/7344586?menu-item-options="
+      },
+      {
+        restaurant_id: "restaurant_2",
+        restaurant_name:"Rice Noodles Restaurant 2",
+        add_to_cart_link: "https://pp.grubhub.com/restaurant/jerusalem-cafe-35-w-36th-st-new-york/264918/menu-item/7344586?menu-item-options="
+      }
+    ],
   },
   {
     name: 'Salmon',
-    url: './img/salmon.jpg'
+    url: './img/salmon.jpg',
+    restaurant_list: [
+      {
+        restaurant_id: "restaurant_1",
+        restaurant_name:"Fresh Salmon Restaurant 1",
+        add_to_cart_link: "https://pp.grubhub.com/restaurant/jerusalem-cafe-35-w-36th-st-new-york/264918/menu-item/7344586?menu-item-options="
+      },
+      {
+        restaurant_id: "restaurant_2",
+        restaurant_name:"Multidish Restaurant 2",
+        add_to_cart_link: "https://pp.grubhub.com/restaurant/jerusalem-cafe-35-w-36th-st-new-york/264918/menu-item/7344586?menu-item-options="
+      }
+    ],
   }
 ]
 
-function Swipe () {
+const Swipe = ({setActiveDirection, setIsSwipeComplete}) => {
   const characters = db
   const [lastDirection, setLastDirection] = useState()
   const [currentDirection, setCurrentDirection] = useState(undefined)
   const [currentLocation, setCurrentLocation] = useState({ x: 0, y: 0 })
 
-  const swiped = (direction, nameToDelete) => {
+  const swiped = (direction, nameToDelete, isLast) => {
     console.log('removing: ' + nameToDelete)
     setLastDirection(direction)
+    if (isLast) {
+      setIsSwipeComplete(true);
+    }
   }
 
   const outOfFrame = (name) => {
@@ -43,47 +107,20 @@ function Swipe () {
   const onMove = (dir, location) => {
     setCurrentDirection(dir)
     setCurrentLocation(location)
-  }
-
-  const renderIcon = (currentDirection) => {
-    if (currentDirection === 'right') {
-      return <img src='./img/like.svg' style={{opacity: Math.abs(currentLocation.x)/100}} className='icon' alt='like'/>
-    } else if (currentDirection === 'left') {
-      return <img src='./img/dislike.svg' className='icon' alt='like'/>
-    } else {
-      return
-    }
+    setActiveDirection(dir)
   }
 
   return (
-    <div>
-      <h4 className='cardHeader'>Are you hungry for this right now?</h4>
-      <div className="divideBackground">
-        <div className="divideLeft">
-          <h4>Not today, thnx.</h4>
-          <div className="instruction">
-            <img src="./img/arrow-left.svg" alt="dislike"/>
-            <p>swipe left</p>
+    <div className='cardContainer'>
+      {characters.map((character) =>
+        <TinderCard className='swipe' key={character.name} onSwipe={(dir) => swiped(dir, character.name, character.isLast)} onCardLeftScreen={() => outOfFrame(character.name)} onMove={onMove}>
+          <div style={{ backgroundImage: 'url(' + character.url + ')' }} className='card'>
           </div>
-        </div>
-        <div className="divideRight">
-          <h4>Yum, yes please</h4>
-          <div className="instruction">
-            <p className="instruction__right">swipe right</p>
-            <img src="./img/arrow-right.svg" alt="like"/>
+          <div className="cardBottom">
+            <h4>{character.name}</h4>
           </div>
-        </div>
-      </div>
-      <div className='cardContainer'>
-        {characters.map((character) =>
-          <TinderCard className='swipe' key={character.name} onSwipe={(dir) => swiped(dir, character.name)} onCardLeftScreen={() => outOfFrame(character.name)} onMove={onMove}>
-            <div style={{ backgroundImage: 'url(' + character.url + ')' }} className='card'>
-              <h3>{character.name}</h3>
-              {renderIcon(currentDirection)}
-            </div>
-          </TinderCard>
-        )}
-      </div>
+        </TinderCard>
+      )}
     </div>
   )
 }
