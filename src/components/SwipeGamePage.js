@@ -9,8 +9,12 @@ const defaultSelectedOptions = [
     url: './img/bibimbop.jpg',
     restaurant_list: [
       {
-        restaurant_id: "restaurant_1",
-        restaurant_name:"Bibimbop Restaurant 1",
+        restaurant_id: "Rice N Bread",
+        restaurant_name:"Rice N Bread",
+        description: "Grilled spicy bulgogi squid and fresh green lettuce on a bed of rice.",
+        info: "4.8 (1.5k) • 124 Smith St",
+        delivery: "25–35",
+        price: "$13.25",
       },
       {
         restaurant_id: "restaurant_2",
@@ -19,12 +23,16 @@ const defaultSelectedOptions = [
     ],
   },
   {
-    name: 'Burger',
+    name: 'Big League Burgers',
     url: './img/burger.jpg',
     restaurant_list: [
       {
         restaurant_id: "restaurant_1",
-        restaurant_name:"Burger 1",
+        restaurant_name:"Wild Goat Burgers and Fries",
+        description: "4 oz Angus Custom House Blend Pattie, American cheese, pickles, grilled onion and mayo on a sesame brioche bun.",
+        info: "4.7 (2.5k) • 3030 N Broadway St",
+        delivery: "25–35",
+        price: "$11.99",
       },
       {
         restaurant_id: "restaurant_2",
@@ -32,16 +40,34 @@ const defaultSelectedOptions = [
       }
     ],
   },
+  {
+    name: 'Meatballs',
+    url: './img/meatballs.jpg',
+    restaurant_list: [
+      {
+        restaurant_id: "Kid's Spaghetti And Meatballs",
+        restaurant_name:"Kid's Spaghetti And Meatballs",
+        description: "sunday sauce, pecorino, hearth bread",
+        info: "4.5 (1.2k) • 875 N Michigan Ave",
+        delivery: "25–35",
+        price: "$16.79",
+      },
+      {
+        restaurant_id: "restaurant_2",
+        restaurant_name:"Meatballs Restaurant 2",
+      }
+    ],
+  },
 ];
 
 const SwipeGamePage = ({ goBack, setShowRestaurantList, setShowSwipe }) => {
-  const [activeDirection, setActiveDirection] = useState('right');
+  const [activeDirection, setActiveDirection] = useState('middle');
   const [isSwipeComplete, setIsSwipeComplete] = useState(false);
   const [recommendationListShort, setRecommendationListShort] = useState([]);
   const [recommendationListLong, setRecommendationistLong] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const shortList = recommendationListShort.length === 0 ? defaultSelectedOptions : recommendationListShort;
+  const shortList = recommendationListShort.length < 3 ? defaultSelectedOptions.concat(recommendationListShort) : [].concat(recommendationListShort);
 
   const seeAllMatches = () => {
     console.log("match list")
@@ -56,21 +82,25 @@ const SwipeGamePage = ({ goBack, setShowRestaurantList, setShowSwipe }) => {
   const renderSwipeGame = (
     <Fragment>
       <div className='cardHeader'>
-        <h4>Are you hungry for this right now?</h4>
+        <h4>Hungry for this right now?</h4>
       </div>
       <div className="divideBackground">
         <div className={`divide divideLeft ${activeDirection === 'left' ? 'active' : ''}`}>
-          <h4>Not today, thnx.</h4>
+          <Heading variant="h4">Not today, thnx.</Heading>
           <div className="instruction">
-            <SvgArrowLeft />
-            <p>swipe left</p>
+            <IconResponsive className="arrow-icon arrow-icon__left" color="#6B6B83">
+              <SvgArrowLeft />
+            </IconResponsive>
+            <Copy className="instruction__left" color="secondaryText">swipe left</Copy>
           </div>
         </div>
         <div className={`divide divideRight ${activeDirection === 'right' ? 'active' : ''}`}>
-          <h4>Yum, yes please</h4>
+          <Heading variant="h4">Yum, yes please</Heading>
           <div className="instruction">
-            <p className="instruction__right">swipe right</p>
-            <SvgArrowRight />
+            <Copy className="instruction__right" color="secondaryText">swipe right</Copy>
+            <IconResponsive className="arrow-icon" color="#6B6B83">
+              <SvgArrowRight />
+            </IconResponsive>
           </div>
         </div>
       </div>
@@ -80,28 +110,28 @@ const SwipeGamePage = ({ goBack, setShowRestaurantList, setShowSwipe }) => {
 
   const renderResult = (
     <Fragment>
-      <img className="sticker" src="./img/sticker.png" alt="sticker"/>
       <div className='cardHeader'>
         <h4>We found you a Grubhub Match!</h4>
       </div>
       <div className="container">
         <div className="cardWrapper">
+          <img className="sticker" src="./img/sticker.png" alt="sticker"/>
           <div style={{ backgroundImage: 'url(' + shortList[currentIndex].url + ')' }} className='card'></div>
           <div className="cardBottom">
-            <h4>Sushi Platter</h4>
-            <Copy color="secondaryText">This description has a max of 3 lines of text. Truncate manually. You can also resize this to 44px if it has no badge...</Copy>
+            <h4>{shortList[currentIndex].name}</h4>
+            <Copy color="secondaryText">{shortList[currentIndex].restaurant_list[0].description}</Copy>
           </div>
         </div>
         <div className="restaurantInfo">
-          <Heading variant="h4">Sushi Restaurant</Heading>
+          <Heading variant="h4">{shortList[currentIndex].restaurant_list[0].restaurant_name}</Heading>
           <div className="moreInfo">
             <IconResponsive color="#FDBB70">
               <SvgStar />
             </IconResponsive>
             <div className="moreInfo__address">
-              <Copy color="secondaryText">4.5 (1.5k) • 124 Smith St</Copy>
+              <Copy color="secondaryText">{shortList[currentIndex].restaurant_list[0].info}</Copy>
             </div>
-            <Copy>20–30 mins</Copy>
+            <Copy>{shortList[currentIndex].restaurant_list[0].delivery}</Copy>
           </div>
         </div>
       </div>
@@ -110,11 +140,11 @@ const SwipeGamePage = ({ goBack, setShowRestaurantList, setShowSwipe }) => {
           isStackedOnMobile={false}
           primary={{
             onClick: function noRefCheck(){},
-            text: 'Add to bag - $10.79'
+            text: `Add to bag - ${shortList[currentIndex].restaurant_list[0].price}`
           }}
           secondary={{
             onClick: currentIndex >= 2 ? seeAllMatches : getAnotherOne,
-            text: currentIndex >= 2 ? 'See all Grubhub Matches' : 'Show me another'
+            text: currentIndex >= 2 ? 'See all matches' : 'Show me another'
           }}
         />
       </div>

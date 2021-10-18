@@ -51,7 +51,7 @@ class FakeGrubhubApp extends React.Component {
   updateOnTimeout() {
     setTimeout(() => {
       this.setState({ showAlert: true });
-    }, 4000);
+    }, 10000);
   }
 
   onConfirm = () => {

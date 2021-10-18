@@ -9,6 +9,8 @@ class RestaurantList extends React.Component {
       screenHeight: 0,
       dimensions: {},
     } ;
+    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+    this.onImgLoad = this.onImgLoad.bind(this);
   }
 
   onImgLoad = ({target:img}) => {

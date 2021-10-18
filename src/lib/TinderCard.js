@@ -7,7 +7,7 @@ const settings = {
   snapBackDuration: 300,
   maxTilt: 5,
   bouncePower: 0.2,
-  swipeThreshold: 200 // px/s
+  swipeThreshold: 140 // px/s
 }
 
 const getElementSize = (element) => {
@@ -264,4 +264,4 @@ const TinderCard = React.forwardRef(({ flickOnSwipe = true, children, onSwipe, o
   )
 })
 
-module.exports = TinderCard
+export default TinderCard

@@ -20,7 +20,7 @@
 .swipeWrapper {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 68px);
+  height: 100vh;
 }
 
 .divideBackground {
@@ -34,9 +34,9 @@
 }
 
 .divideLeft h4 {
-  font-size: 16px;
   margin-top: 34px;
   margin-bottom: 30px;
+  color: #C3363E;
 }
 
 .divideLeft .instruction p {
@@ -54,13 +54,38 @@
 }
 
 .divideRight h4 {
-  font-size: 16px;
   margin-top: 34px;
   margin-bottom: 30px;
+  color: #2B8282;
 }
 
-.divide.active {
-  background-color: #572AF8;
+.divideRight.active {
+  background-color: #2B8282;
+  color: #fff;
+}
+
+.divideLeft.active {
+  background-color: #C3363E;
+  color: #fff;
+}
+
+.divideRight.active h4 {
+  color: #fff;
+}
+.divideRight.active .instruction__right {
+  color: #fff;
+}
+.divideRight.active .arrow-icon {
+  color: #fff;
+}
+
+.divideLeft.active .instruction__left {
+  color: #fff;
+}
+.divideLeft.active h4 {
+  color: #fff;
+}
+.divideLeft.active .arrow-icon {
   color: #fff;
 }
 
@@ -73,8 +98,17 @@
   line-height: 16px;
 }
 
+.instruction .arrow-icon {
+  line-height: 18px;
+}
+
+.instruction .arrow-icon__left {
+  margin-right: 4px;;
+}
+
 .instruction__right {
   flex: 1;
+  margin-right: 4px !important;
 }
 
 .footer {
@@ -85,6 +119,7 @@
 }
 
 .cardWrapper {
+  position: relative;
   width: calc(100vw - 28px);
   box-shadow: 0px 1px 8px 0px rgba(67,41,163,0.10);
   border-radius: 8px;
@@ -120,7 +155,9 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
-  flex: 1;
+  height: calc(100vh - 166px);
+  background-color: #F9F9F9;
+  padding-bottom: 7%;
   animation-name: fade-in;
   animation-duration: 2s;
   animation-timing-function: normal;
@@ -132,9 +169,10 @@
 
 .sticker{
   position: absolute;
-  top: 26px;
-  right: 8px;
+  top: -46px;
+  right: -14px;
   width: 110px;
+  z-index: 999;
   animation-name: bounce-in-zoomin;
   animation-duration: 1.5s;
   animation-timing-function: ease;
