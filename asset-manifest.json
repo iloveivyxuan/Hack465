@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/Hack465/static/css/main.e837d4c3.chunk.css",
-    "main.js": "/Hack465/static/js/main.a9266d34.chunk.js",
-    "main.js.map": "/Hack465/static/js/main.a9266d34.chunk.js.map",
+    "main.css": "/Hack465/static/css/main.c5854ad5.chunk.css",
+    "main.js": "/Hack465/static/js/main.205a05a2.chunk.js",
+    "main.js.map": "/Hack465/static/js/main.205a05a2.chunk.js.map",
     "runtime-main.js": "/Hack465/static/js/runtime-main.ee1d713f.js",
     "runtime-main.js.map": "/Hack465/static/js/runtime-main.ee1d713f.js.map",
     "static/css/2.5a56e189.chunk.css": "/Hack465/static/css/2.5a56e189.chunk.css",
@@ -12,14 +12,14 @@
     "static/js/3.5af493cc.chunk.js.map": "/Hack465/static/js/3.5af493cc.chunk.js.map",
     "index.html": "/Hack465/index.html",
     "static/css/2.5a56e189.chunk.css.map": "/Hack465/static/css/2.5a56e189.chunk.css.map",
-    "static/css/main.e837d4c3.chunk.css.map": "/Hack465/static/css/main.e837d4c3.chunk.css.map",
+    "static/css/main.c5854ad5.chunk.css.map": "/Hack465/static/css/main.c5854ad5.chunk.css.map",
     "static/js/2.db193c88.chunk.js.LICENSE.txt": "/Hack465/static/js/2.db193c88.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.ee1d713f.js",
     "static/css/2.5a56e189.chunk.css",
     "static/js/2.db193c88.chunk.js",
-    "static/css/main.e837d4c3.chunk.css",
-    "static/js/main.a9266d34.chunk.js"
+    "static/css/main.c5854ad5.chunk.css",
+    "static/js/main.205a05a2.chunk.js"
   ]
 }
